@@ -1,3 +1,23 @@
 <Solution>
-  <Project Path="TaskManager/TaskManager.csproj" />
+  <Folder Name="/1 - API/">
+    <Project Path="TaskManager/TaskManager.csproj" />
+  </Folder>
+  <Folder Name="/2 - Application/">
+    <Project Path="TaskManager.Application/TaskManager.Application.csproj" Id="db1e75ce-e028-4997-9fda-b44730120885" />
+  </Folder>
+  <Folder Name="/3 - Domain/">
+    <Project Path="TaskManager.Domain/TaskManager.Domain.csproj" Id="da1bf69f-63cc-4dcc-a683-0397ea986437" />
+  </Folder>
+  <Folder Name="/4 - Infrastructure/">
+    <Project Path="TaskManager.Infrastructure/TaskManager.Infrastructure.csproj" Id="9f8e6a8c-a50e-49a0-9054-ccb10133df01" />
+  </Folder>
+  <Folder Name="/5 - Contracts/">
+    <Project Path="TaskManager.Contracts/TaskManager.Contracts.csproj" Id="c2cb8212-0dc5-4542-941f-de89abb9c9dd" />
+  </Folder>
+  <Folder Name="/6 - Transform/">
+    <Project Path="TaskManager.Transform/TaskManager.Transform.csproj" Id="062fea0c-d49d-4c15-aab3-efd400cf099b" />
+  </Folder>
+  <Folder Name="/7 - Tests/">
+    <Project Path="TaskManager.Tests/TaskManager.Tests.csproj" Id="337f519c-68e8-49b4-ac73-7f2e0672bb94" />
+  </Folder>
 </Solution>
