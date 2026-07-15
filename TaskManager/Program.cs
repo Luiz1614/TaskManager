@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using TaskManager.Infrastructure.Data.Context;
+using TaskManager.Infrastructure.Data.Repositories;
+using TaskManager.Infrastructure.Data.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("TaskManagerDb"));
+
+builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
 
 var app = builder.Build();
 
