@@ -1,13 +1,14 @@
 ﻿using TaskManager.Domain.Entities;
+using TaskManager.Domain.Enums;
 
 namespace TaskManager.Infrastructure.Data.Repositories.Interfaces
 {
     public interface ITaskItemRepository
     {
-        Task AddTaskItemAsync(TaskItem taskItem);
+        Task AddAsync(TaskItem taskItem);
         Task DeleteAsync(Guid Id);
-        Task<IEnumerable<TaskItem>> GetAllAsync();
-        Task<TaskItem> GetByIdAsync(Guid Id);
-        Task UpdateTaskItemAsync(TaskItem taskItem);
+        Task<IEnumerable<TaskItem>> GetAllAsync(TaskItemStatus? status = null, DateTime? dueDate = null);
+        Task<TaskItem?> GetByIdAsync(Guid Id);
+        Task UpdateAsync(TaskItem taskItem);
     }
 }

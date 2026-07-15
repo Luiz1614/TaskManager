@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskManager.Domain.Entities;
+using TaskManager.Domain.Enums;
 using TaskManager.Infrastructure.Data.Context;
 using TaskManager.Infrastructure.Data.Repositories.Interfaces;
 
@@ -14,23 +15,31 @@ public class TaskItemRepository : ITaskItemRepository
         _context = context;
     }
 
-    public async Task<TaskItem> GetByIdAsync(Guid Id)
+    public async Task<TaskItem?> GetByIdAsync(Guid Id)
     {
         return await _context.TaskItems.FindAsync(Id);
     }
 
-    public async Task<IEnumerable<TaskItem>> GetAllAsync()
+    public async Task<IEnumerable<TaskItem>> GetAllAsync(TaskItemStatus? status = null, DateTime? dueDate = null)
     {
-        return await _context.TaskItems.AsNoTracking().ToListAsync();
+        var query = _context.TaskItems.AsQueryable();
+
+        if (status.HasValue)
+            query = query.Where(t => t.Status == status.Value);
+
+        if (dueDate.HasValue)
+            query = query.Where(t => t.DueDate.HasValue && t.DueDate.Value.Date == dueDate.Value.Date);
+
+        return await query.ToListAsync();
     }
 
-    public async Task AddTaskItemAsync(TaskItem taskItem)
+    public async Task AddAsync(TaskItem taskItem)
     {
         await _context.TaskItems.AddAsync(taskItem);
         await _context.SaveChangesAsync();
     }
 
-    public async Task UpdateTaskItemAsync(TaskItem taskItem)
+    public async Task UpdateAsync(TaskItem taskItem)
     {
         _context.TaskItems.Update(taskItem);
         await _context.SaveChangesAsync();
