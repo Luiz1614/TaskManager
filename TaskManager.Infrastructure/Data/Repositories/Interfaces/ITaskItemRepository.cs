@@ -9,6 +9,7 @@ namespace TaskManager.Infrastructure.Data.Repositories.Interfaces
         Task DeleteAsync(Guid Id);
         Task<IEnumerable<TaskItem>> GetAllAsync(TaskItemStatus? status = null, DateTime? dueDate = null);
         Task<TaskItem?> GetByIdAsync(Guid Id);
+        Task<TaskItem> GetByTitleAsync(string title);
         Task UpdateAsync(TaskItem taskItem);
     }
 }

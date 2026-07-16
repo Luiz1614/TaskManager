@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Net.WebSockets;
 using TaskManager.Domain.Entities;
 using TaskManager.Domain.Enums;
 using TaskManager.Infrastructure.Data.Context;
@@ -31,6 +32,11 @@ public class TaskItemRepository : ITaskItemRepository
             query = query.Where(t => t.DueDate.HasValue && t.DueDate.Value.Date == dueDate.Value.Date);
 
         return await query.ToListAsync();
+    }
+
+    public async Task<TaskItem?> GetByTitleAsync(string title)
+    {
+        return await _context.TaskItems.SingleOrDefaultAsync(t => t.Title == title);
     }
 
     public async Task AddAsync(TaskItem taskItem)

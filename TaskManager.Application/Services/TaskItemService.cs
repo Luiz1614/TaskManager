@@ -19,6 +19,13 @@ public class TaskItemService : ITaskItemService
     {
         var taskItem = new TaskItem(dto.Title, dto.Description, dto.DueDate);
 
+        var taskValidate = await _taskItemRepository.GetByTitleAsync(taskItem.Title);
+
+        if(taskValidate is not null)
+        {
+            throw new InvalidOperationException("Já existe uma tarefa com este mesmo título cadastrada.");
+        }
+
         await _taskItemRepository.AddAsync(taskItem);
         return taskItem.Id;
     }
