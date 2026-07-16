@@ -12,22 +12,22 @@ public class TaskItem
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 
-    public TaskItem(Guid id, string title, string? description, DateTime? dueDate, TaskItemStatus status, DateTime createdAt, DateTime updatedAt)
+    public TaskItem(string title, string? description, DateTime? dueDate)
     {
         ValidateTitle(title);
         ValidateDueDate(dueDate);
 
-        Id = id;
+        Id = Guid.NewGuid();
         Title = title;
         Description = description;
         DueDate = dueDate;
-        Status = status;
-        CreatedAt = createdAt;
-        UpdatedAt = updatedAt;
+        Status = TaskItemStatus.Pending;
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
     }
 
 
-    public void Update(string title, string description, DateTime dueDate)
+    public void Update(string title, string? description, DateTime? dueDate)
     {
         if(Status == TaskItemStatus.Completed)
         {

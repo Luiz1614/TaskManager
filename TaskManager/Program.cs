@@ -2,6 +2,8 @@ using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using TaskManager.Application.Services;
+using TaskManager.Application.Services.Interfaces;
 using TaskManager.Infrastructure.Data.Context;
 using TaskManager.Infrastructure.Data.Repositories;
 using TaskManager.Infrastructure.Data.Repositories.Interfaces;
@@ -16,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 var config = TypeAdapterConfig.GlobalSettings;
-config.Scan(Assembly.GetExecutingAssembly()); // Escaneia classes que implementam IRegister
+config.Scan(Assembly.GetExecutingAssembly());
 
 builder.Services.AddSingleton(config);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
@@ -25,6 +27,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("TaskManagerDb"));
 
 builder.Services.AddScoped<ITaskItemRepository, TaskItemRepository>();
+builder.Services.AddScoped<ITaskItemService, TaskItemService>();
 
 var app = builder.Build();
 
