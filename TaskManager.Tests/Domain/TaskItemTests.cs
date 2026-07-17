@@ -122,7 +122,7 @@ public class TaskItemTests
     public void IsOverdue_WithPastDueDateAndNotCompleted_ReturnsTrue()
     {
         var task = CreateValidTask(FutureDate);
-        task.Update(task.Title, task.Description, DateTime.UtcNow.AddDays(-1));
+        task.Update(task.Title, task.Description, DateTime.UtcNow.AddMinutes(-1));
 
         Assert.True(task.IsOverdue());
     }
@@ -131,7 +131,7 @@ public class TaskItemTests
     public void IsOverdue_WhenCompleted_ReturnsFalse()
     {
         var task = CreateValidTask(FutureDate);
-        task.Update(task.Title, task.Description, DateTime.UtcNow.AddDays(-1));
+        task.Update(task.Title, task.Description, DateTime.UtcNow.AddMinutes(-1));
         task.ChangeStatus(TaskItemStatus.InProgress);
         task.ChangeStatus(TaskItemStatus.Completed);
 

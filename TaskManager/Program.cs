@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 
 var config = TypeAdapterConfig.GlobalSettings;
-config.Scan(Assembly.GetExecutingAssembly());
+config.Scan(typeof(TaskManager.Transform.MappingProfiles.TaskItemMappingProfile).Assembly);
 
 builder.Services.AddSingleton(config);
 builder.Services.AddScoped<IMapper, ServiceMapper>();

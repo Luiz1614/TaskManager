@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using TaskManager.Application.Services.Interfaces;
 using TaskManager.Contracts.DTOs;
 using TaskManager.Domain.Enums;
@@ -65,13 +66,13 @@ public class TaskItemController : ControllerBase
     /// </summary>
     /// <param name="dto">Dados da tarefa a ser criada.</param>
     /// <returns>Mensagem de confirmação com a tarefa criada.</returns>
-    /// <response code="200">Tarefa criada com sucesso.</response>
+    /// <response code="201">Tarefa criada com sucesso.</response>
     [HttpPost]
     public async Task<IActionResult> AddTaskItem(CreateTaskItemRequest dto)
     {
         var taskItem = await _taskItemService.CreateAsync(dto);
 
-        return Ok($"Tarefa Criada com sucesso: {taskItem}");
+        return StatusCode((int)HttpStatusCode.Created, $"Tarefa criada com sucesso: {taskItem}");
     }
 
     /// <summary>
@@ -81,8 +82,8 @@ public class TaskItemController : ControllerBase
     /// <param name="dto">Novos dados da tarefa.</param>
     /// <returns>Nenhum conteúdo.</returns>
     /// <response code="204">Tarefa atualizada com sucesso.</response>
-    [HttpPut]
-    public async Task<IActionResult> UpdateTaskItem([FromQuery] Guid id, [FromBody] UpdateTaskItemRequest dto)
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateTaskItem(Guid id, [FromBody] UpdateTaskItemRequest dto)
     {
         await _taskItemService.UpdateAsync(id, dto);
 
@@ -95,7 +96,7 @@ public class TaskItemController : ControllerBase
     /// <param name="id">Identificador da tarefa a ser excluída.</param>
     /// <returns>Nenhum conteúdo.</returns>
     /// <response code="204">Tarefa excluída com sucesso.</response>
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTaskItem(Guid id)
     {
         await _taskItemService.DeleteAsync(id);

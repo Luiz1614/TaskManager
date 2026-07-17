@@ -26,6 +26,11 @@ public class TaskItem
         UpdatedAt = DateTime.UtcNow;
     }
 
+    private TaskItem()
+    {
+
+    }
+
 
     public void Update(string title, string? description, DateTime? dueDate)
     {
@@ -33,6 +38,9 @@ public class TaskItem
         {
             throw new InvalidOperationException("Não é possível editar uma tarefa já concluída.");
         }
+
+        ValidateDueDate(dueDate);
+        ValidateTitle(title);
 
         Title = title;
         Description = description;
@@ -84,7 +92,7 @@ public class TaskItem
 
     private static void ValidateDueDate(DateTime? dueDate)
     {
-        if(dueDate.HasValue && dueDate.Value.Date < DateTime.UtcNow)
+        if(dueDate.HasValue && dueDate.Value.Date < DateTime.UtcNow.Date)
         {
             throw new ArgumentException("A data de vencimento não pode ser menor do que a data atual.");
         }
