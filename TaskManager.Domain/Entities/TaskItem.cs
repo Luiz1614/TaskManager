@@ -45,7 +45,7 @@ public class TaskItem
     {
         if(Status == newStatus)
         {
-            return;
+            throw new InvalidOperationException("A tarefa já está com este status.");
         }
 
         if (Status == TaskItemStatus.Completed && newStatus == TaskItemStatus.Pending)

@@ -59,7 +59,11 @@ public class TaskItemService : ITaskItemService
         }
 
         taskItem.Update(dto.Title, dto.Description, dto.DueDate);
-        taskItem.ChangeStatus(dto.Status);
+
+        if (taskItem.Status != dto.Status)
+        {
+            taskItem.ChangeStatus(dto.Status);
+        }
 
         await _taskItemRepository.UpdateAsync(taskItem);
     }
